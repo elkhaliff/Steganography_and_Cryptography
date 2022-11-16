@@ -1,26 +1,26 @@
 package cryptography
 
-private fun getString(message: String): String {
+fun getString(message: String): String {
     println(message)
     return readln()
 }
 
-fun main() {
-    var command = getCommand()
+private fun getTask() = getString("Task (hide, show, exit):")
 
-    while (command != "exit") {
-        runCommand(command)
-        command = getCommand()
+fun main() {
+    while (true) {
+        val task = getTask()
+        if (task == "exit") break
+        menu(task)
     }
     println("Bye!")
 }
 
-private fun getCommand() = getString("Task (hide, show, exit):")
-
-private fun runCommand(command: String) {
+private fun menu(command: String) {
+    val crypto = Crypto()
     when (command) {
-        "hide" -> "Hiding message in image."
-        "show" -> "Obtaining message from image."
+        "hide" -> crypto.hide()
+        "show" -> crypto.show()
         else -> "Wrong task: $command"
     }.let { println(it) }
 }
